@@ -1,0 +1,67 @@
+---
+lookup_options:
+  types::types:
+    merge: unique
+
+# Default merge behavior
+types::merge:
+  strategy: 'deep'
+  knockout_prefix: '--'
+
+# Native puppet types
+types::types:
+  - 'augeas'
+  - 'cron'
+  - 'exec'
+  - 'file'
+  - 'filebucket'
+  - 'group'
+  - 'host'
+  - 'mount'
+  - 'notify'
+  - 'package'
+  - 'resources'
+  - 'schedule'
+  - 'scheduled_task'
+  - 'seboolean'
+  - 'selmodule'
+  - 'service'
+  - 'ssh_authorized_key'
+  - 'sshkey'
+  - 'stage'
+  - 'tidy'
+  - 'user'
+  - 'yumrepo'
+  - 'zfs'
+  - 'zone'
+  - 'zpool'
+  # Bundled defined types
+  - 'binary'
+  # Types from common modules
+  - 'file_line'
+
+# Deprecated in Puppet 6.x
+types::deprecated_types:
+  - 'computer'
+  - 'interface'
+  - 'k5login'
+  - 'macauthorization'
+  - 'mailalias'
+  - 'maillist'
+  - 'mcx'
+  - 'nagios_command'
+  - 'nagios_contact'
+  - 'nagios_contactgroup'
+  - 'nagios_host'
+  - 'nagios_hostdependency'
+  - 'nagios_hostescalation'
+  - 'nagios_hostextinfo'
+  - 'nagios_hostgroup'
+  - 'nagios_service'
+  - 'nagios_servicedependency'
+  - 'nagios_serviceescalation'
+  - 'nagios_serviceextinfo'
+  - 'nagios_servicegroup'
+  - 'nagios_timeperiod'
+  - 'router'
+  - 'vlan'
