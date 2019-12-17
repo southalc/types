@@ -13,7 +13,10 @@ Enable management of many things without writing any puppet code!  This module
 supports ANY resource type from ANY module and by default includes ALL the
 native types supported by the puppet agent, the
 ['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/5.2.0/types#file_line)
-from puppetlabs/stdlib, and the local defined type ['binary'](#types).
+from puppetlabs/stdlib, and the local defined type ['binary'](#types).  This is
+an evolution of my [basic](https://forge.puppet.com/southalc/basic) module, but
+released as a new module due to the different approach to handling type data
+via parameters.
 
 The module can also be extended to support new types by simply adding the type
 name(s) to the `types` parameter as an array.  Of course, the module providing
@@ -112,9 +115,9 @@ types::exec:
 ```
 This is a more complex example that demonstrates extending the module to include
 types provided by the [concat](https://forge.puppet.com/puppetlabs/concat/readme)
-module, installing an OpenSSH server, and configuring an `sshd_config` file as
-a `concat` fragment.  All systems in the environment could be targeted with this
-configuration:
+module, installing an OpenSSH server, and configuring the `sshd_config` file as
+a `concat_file`, with content provided from a `concat_fragment`.  All systems
+in the environment could be targeted with this configuration:
 ```
 types::types:
   - 'concat_file'
@@ -151,10 +154,10 @@ types::concat_fragment:
       AcceptEnv LANG LC_* LANGUAGE XMODIFIERS
       Subsystem sftp /usr/libexec/openssh/sftp-server
 ```
-Now we can extend the above configuration with another `concat_fragment`
-resource for systems that require some additional settings.  This would be
-targeted in the hierarchy against some subset of nodes to extend the default
-configuration:
+The above SSH server configuration can now be extended by adding another
+`concat_fragment` resource for systems that require additional settings.  This
+would be targeted in the hierarchy against some subset of nodes to extend the
+default configuration:
 ```
 types::concat_fragment:
   sensitive_sshd_config:
@@ -167,20 +170,20 @@ types::concat_fragment:
 ## Reference
 
 The module has only 2 parameters: `types` and `merge`.  Default values enable
-the resource types per the above description, and set the
+the types per the above description, and set the
 [merge behavior](https://puppet.com/docs/puppet/6.10/hiera_merging.html) to
 `deep` with a knockout prefix of `--`.
 
-Data for each enabled type is obtained through an explicit lookup that defaults
-to an empty hash and defined merge behavior.  This means that unless there are
-resources defined in hiera the module won't do anything.
+Data for each enabled type is obtained through an explicit lookup() that defaults
+to an empty hash.  This means that unless there are resources defined in hiera
+the module won't do anything.
 
 ## Types
 
 The defined type 'types::binary' works like the standard 'file' type and uses all
 the same attributes, but the 'content' attribute type must be a base64 encoded string.
-This is useful for distributing small files that may be security sensitive. It has
-proven useful for distributing Kerberos keytabs for service accounts.
+This is useful for distributing small files that may be security sensitive such
+as Kerberos keytabs.
 
 The `types::type` defined type replaces create_resources() by using abstracted
 resource types as [documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html)
@@ -193,7 +196,8 @@ many resources with similar attributes.
 
 ## Feedback
 
-Please use the [project wiki on github](https://github.com/southalc/types/wiki) for feedback, questions, or to share your creative use of this module.
+Please use the [project wiki on github](https://github.com/southalc/types/wiki)
+for feedback, questions, or to share your creative use of this module.
 
 ## Development
 

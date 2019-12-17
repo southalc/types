@@ -3,13 +3,14 @@ lookup_options:
   types::types:
     merge: unique
 
-# Default merge behavior
+# Module parameter defaults
+types::types: []
 types::merge:
   strategy: 'deep'
   knockout_prefix: '--'
 
-# Native puppet types
-types::types:
+# Default types for all puppet versions
+types::native_types:
   - 'augeas'
   - 'cron'
   - 'exec'
@@ -35,12 +36,10 @@ types::types:
   - 'zfs'
   - 'zone'
   - 'zpool'
-  # Bundled defined types
-  - 'binary'
-  # Types from common modules
-  - 'file_line'
+  - 'binary'       # locally defined
+  - 'file_line'    # from puppetlabs/stdlib
 
-# Deprecated in Puppet 6.x
+# Deprecated as of puppet 6.x
 types::deprecated_types:
   - 'computer'
   - 'interface'
