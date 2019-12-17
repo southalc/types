@@ -12,7 +12,7 @@
 Enable management of many things without writing any puppet code!  This module
 supports ANY resource type from ANY module and by default includes ALL the
 native types supported by the puppet agent, the
-['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/5.2.0/types#file_line)
+['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/reference#file_line)
 from puppetlabs/stdlib, and the local defined type ['binary'](#types).  This is
 an evolution of my [basic](https://forge.puppet.com/southalc/basic) module, but
 released as a new module due to the different approach to handling type data
@@ -39,7 +39,7 @@ types that are provided by other modules can easily be used by this module,
 allowing those resources to be managed easily from hiera and without writing
 any puppet code.
 
-Use [relationship metaparameters](https://puppet.com/docs/puppet/6.6/lang_relationships.html#reference-2871)
+Use [relationship metaparameters](https://puppet.com/docs/puppet/6.10/lang_relationships.html)
 in your hiera data to order resource dependencies.  A typical application will
 have 'package', 'file', and 'service' resources, and the logical order would
 have the file resource(s) 'require' the package, and either have the service
