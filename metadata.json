@@ -1,6 +1,6 @@
 {
   "name": "southalc-types",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Chris Southall",
   "summary": "Manage ALL puppet types",
   "license": "Apache-2.0",
@@ -8,82 +8,23 @@
   "project_page": "https://github.com/southalc/types",
   "issues_url": "https://github.com/southalc/types/issues",
   "dependencies": [
-
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.1.0 <= 7.0.0" }
   ],
   "operatingsystem_support": [
-    {
-      "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "9"
-      ]
-    },
-    {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "18.04"
-      ]
-    },
-    {
-      "operatingsystem": "windows",
-      "operatingsystemrelease": [
-        "2019",
-        "10"
-      ]
-    },
-    {
-      "operatingsystem": "Solaris",
-      "operatingsystemrelease": [
-        "11"
-      ]
-    },
-    {
-      "operatingsystem": "SLES",
-      "operatingsystemrelease": [
-        "15"
-      ]
-    },
-    {
-      "operatingsystem": "Darwin",
-      "operatingsystemrelease": [
-        "16"
-      ]
-    },
-    {
-      "operatingsystem": "Fedora",
-      "operatingsystemrelease": [
-        "29"
-      ]
-    }
+    { "operatingsystem": "CentOS" },
+    { "operatingsystem": "OracleLinux" },
+    { "operatingsystem": "RedHat" },
+    { "operatingsystem": "Scientific" },
+    { "operatingsystem": "Debian" },
+    { "operatingsystem": "Ubuntu" },
+    { "operatingsystem": "windows" },
+    { "operatingsystem": "Solaris" },
+    { "operatingsystem": "SLES" },
+    { "operatingsystem": "Darwin" },
+    { "operatingsystem": "Fedora" }
   ],
   "requirements": [
-    {
-      "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
-    }
+    { "name": "puppet", "version_requirement": ">= 4.10.0 < 7.0.0" }
   ],
   "pdk-version": "1.14.1",
   "template-url": "pdk-default#1.14.1",

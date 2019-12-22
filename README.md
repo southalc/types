@@ -9,42 +9,41 @@
 
 ## Description
 
-Enable management of many things without writing any puppet code!  This module
-supports ANY resource type from ANY module and by default includes ALL the
-native types supported by the puppet agent, the
-['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/reference#file_line)
+Enable management of many things without writing puppet code.  Like many other
+modules on puppet forge, this module creates resources from data defined in
+hiera hashes.  The difference is that this module supports ALL types from ANY
+module.  This is accomplished by simply using the `types` parameter with an
+array of types, which is also done from hiera.  Of course, when adding types
+from other modules, the module actually providing the type must be deployed in
+the environment.
+
+By default, the module includes all the native types supported by the puppet
+agent, the ['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/reference#file_line)
 from puppetlabs/stdlib, and the local defined type ['binary'](#types).  This is
 an evolution of my [basic](https://forge.puppet.com/southalc/basic) module, but
-released as a new module due to the different approach to handling type data
-via parameters.
-
-The module can also be extended to support new types by simply adding the type
-name(s) to the `types` parameter as an array.  Of course, the module providing
-the type must also be deployed in the environment or you'll get an evaluation
-error for an unknown resource type.
+released as a new module due to the difference in how parameters are used.  The
+`basic` module is deprecated as it offers no advantages to the flexibility of
+this implementation.
 
 ## Usage
 
 To get started, just define resources in hiera.  Use `types::<type_name>` where
-`type_name` can be ANY type from ANY module present in the environment.  See the
-examples for help getting started and the
-[type reference](https://puppet.com/docs/puppet/6.10/type.html) for details on
-the native puppet types.
+`type_name` can be ANY type from ANY module present in the environment.  When
+defining resources for types not natively supported per the above description,
+ensure you also define the hiera array `types::types` with the type names that
+should be included.  See the last example that extends supported types.
 
 Many puppet modules only perform simple tasks like installing packages, writing
 configuration files, and starting services.  Since this module can do all these
 things and more, it's possible to replace the functionality of MANY modules by
-using this one and defining appropriate resources in hiera.  In addition,
-types that are provided by other modules can easily be used by this module,
-allowing those resources to be managed easily from hiera and without writing
-any puppet code.
+using this one and defining appropriate resources in hiera.
 
 Use [relationship metaparameters](https://puppet.com/docs/puppet/6.10/lang_relationships.html)
 in your hiera data to order resource dependencies.  A typical application will
 have 'package', 'file', and 'service' resources, and the logical order would
 have the file resource(s) 'require' the package, and either have the service
 resource 'subscribe' to the file resource(s) or have the file resource(s)
-'notify' the corresponding service.
+'notify' the corresponding service.  See this in the following examples.
 
 ### Examples
 This deployment of the name service caching daemon demonstrates installation of
@@ -113,11 +112,12 @@ types::exec:
     subscribe: 'File[/etc/sysconfig/iptables]'
     refreshonly: true
 ```
-This is a more complex example that demonstrates extending the module to include
-types provided by the [concat](https://forge.puppet.com/puppetlabs/concat/readme)
-module, installing an OpenSSH server, and configuring the `sshd_config` file as
-a `concat_file`, with content provided from a `concat_fragment`.  All systems
-in the environment could be targeted with this configuration:
+This example demonstrates adding the types `concat_file` and `concat_fragment`
+provided by [concat](https://forge.puppet.com/puppetlabs/concat/readme).  The
+additional resources will install an OpenSSH server, configure 'sshd_config'
+from a `concat_file` resource, and add content to 'sshd_config' from a
+`concat_fragment` resource.  This configuration can now be extended with
+additional `concat_fragment` resources from elsewhere in hiera.
 ```
 types::types:
   - 'concat_file'
@@ -154,10 +154,10 @@ types::concat_fragment:
       AcceptEnv LANG LC_* LANGUAGE XMODIFIERS
       Subsystem sftp /usr/libexec/openssh/sftp-server
 ```
-The above SSH server configuration can now be extended by adding another
-`concat_fragment` resource for systems that require additional settings.  This
-would be targeted in the hierarchy against some subset of nodes to extend the
-default configuration:
+This `concat_fragment` resource will be added to the above configuration using
+the specified order.  This could also be used for 'Match' blocks or any other
+configuration snippet that shouldn't apply to the entire environment, but are
+required for some sub-set of nodes in the hierachy.
 ```
 types::concat_fragment:
   sensitive_sshd_config:
@@ -185,7 +185,7 @@ the same attributes, but the 'content' attribute type must be a base64 encoded s
 This is useful for distributing small files that may be security sensitive such
 as Kerberos keytabs.
 
-The `types::type` defined type replaces create_resources() by using abstracted
+The defined type `types::type` replaces create_resources() by using abstracted
 resource types as [documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html)
 This should be invoked by the resource type being created with a '$hash' parameter
 containing the properties of the resource.
