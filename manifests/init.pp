@@ -1,8 +1,7 @@
 # Generic class uses hiera hashes with simple iteration to implement ANY
-# resource type.  This enables resource management through simple hiera
-# files without the need to write any puppet code.  Types from additional
-# modules can be used simply by adding the type(s) to `types` parameter
-# and defining the new resources in the hiera hash `types::<type_name>`
+# resource type or defined type.  Types from additional modules can be used
+# simply by adding the type(s) to `types` parameter and defining the new
+# resources in the hiera hash `types::<type_name>`
 
 class types (
   Array $types,
@@ -25,12 +24,19 @@ class types (
     $hash = lookup("types::${type}", Hash, $merge, {})
     case $type {
       'binary': {
+        $defaults = lookup('types::binary_defaults', Hash, hash, {})
         $hash.each |String $binary, Hash $properties| {
-          Types::Binary { $binary: properties => $properties }
+          Types::Binary { $binary:
+            properties => $properties,
+            defaults   => $defaults,
+          }
         }
       }
       default: {
-        Types::Type { $type: hash => $hash, }
+        Types::Type { $type:
+          hash     => $hash,
+          defaults => lookup("types::${type}_defaults", Hash, hash, {}),
+        }
       }
     }
   }

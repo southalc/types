@@ -13,9 +13,9 @@ Enable management of many things without writing puppet code.  Like many other
 modules on puppet forge, this module creates resources from data defined in
 hiera hashes.  The difference is that this module supports ALL types from ANY
 module.  This is accomplished by simply using the `types` parameter with an
-array of types, which is also done from hiera.  Of course, when adding types
-from other modules, the module actually providing the type must be deployed in
-the environment.
+array of types, which is also done from hiera.  Of course, when using types from
+other modules, the module actually providing the type must be deployed in the
+environment.
 
 By default, the module includes all the native types supported by the puppet
 agent, the ['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/reference#file_line)
@@ -31,7 +31,9 @@ To get started, just define resources in hiera.  Use `types::<type_name>` where
 `type_name` can be ANY type from ANY module present in the environment.  When
 defining resources for types not natively supported per the above description,
 ensure you also define the hiera array `types::types` with the type names that
-should be included.  See the last example that extends supported types.
+should be included.  See the examples for a demonstration that leverages types
+from other modules, and see the ['types'](#types) notes for how to define default
+values for any type.
 
 Many puppet modules only perform simple tasks like installing packages, writing
 configuration files, and starting services.  Since this module can do all these
@@ -190,9 +192,28 @@ resource types as [documented here.](https://puppet.com/docs/puppet/5.5/lang_res
 This should be invoked by the resource type being created with a '$hash' parameter
 containing the properties of the resource.
 
-For both 'types::binary' and 'types::type', an optional 'defaults' hash may be
-passed which could be useful in reducing the amount of data needed when declaring
-many resources with similar attributes.
+For both `types::binary` and `types::type`, a `defaults` parameter is defined as
+a hash that will be used for default values.  By default, the module will perform
+an explicit lookup for `types::<type>_defaults` for each enabled resource type
+where a hash is present in hiera, then pass the value as 'defaults' when calling
+the respective defined type.  This is useful in reducing the amount of data needed
+to define many resources of the same type with similar attributes.  For example,
+you could set default attributes for all 'service' types as follows:
+```
+types::service_defaults:
+  ensure: 'running'
+  enable: true
+
+types::service:
+  service1: {}
+  service2: {}
+  service3:
+    ensure: 'stopped'
+    enable: false
+```
+Note in the above example how the defined services can be set to empty hashes, as the
+supplied defaults are adequate to complete the resource definitions.  Values explicitly
+defined to a service instance take precedent over the default values.
 
 ## Feedback
 

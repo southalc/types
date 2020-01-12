@@ -1,10 +1,10 @@
-# Create binary files from base64 encoded data
+# Create a file with content from base64 encoded data
 
 define types::binary (
   Hash $properties,
-  $defaults = lookup('types::binary::defaults', Hash, 'hash', {})
+  Hash $defaults = {},
 ) {
-  $content = base64('decode',$properties['content'])
+  $content = base64('decode', $properties['content'])
   $file_data = merge($properties, { content => $content})
 
   File { $name:

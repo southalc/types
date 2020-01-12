@@ -1,8 +1,11 @@
-# Changelog
+## Release 0.2.0
 
-All notable changes to this project will be documented in this file.
+**Features**
 
-## Release 0.1.0
+- Enabled default attributes for all types, reducing the amount of data required
+in hiera when defining many resources with similar attributes.
+
+## Release 0.1.1
 
 **Bugfixes**
 - Added `stdlib` to module dependencies
