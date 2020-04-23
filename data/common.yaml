@@ -24,7 +24,7 @@ types::native_types:
   - 'resources'
   - 'schedule'
   - 'scheduled_task'
-  - 'seboolean'
+  - 'selboolean'
   - 'selmodule'
   - 'service'
   - 'ssh_authorized_key'

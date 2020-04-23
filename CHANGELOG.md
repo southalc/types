@@ -1,3 +1,8 @@
+## Release 0.2.1
+
+**Bugfix**
+- Typo in module hiera including the 'selboolean' class
+
 ## Release 0.2.0
 
 **Features**
