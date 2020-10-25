@@ -2,7 +2,7 @@
   "name": "southalc-types",
   "version": "0.3.0",
   "author": "Chris Southall",
-  "summary": "Manage ALL puppet types",
+  "summary": "Manage ALL puppet types from hiera",
   "license": "Apache-2.0",
   "source": "https://github.com/southalc/types",
   "project_page": "https://github.com/southalc/types",
