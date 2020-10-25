@@ -215,8 +215,8 @@ include this module as follows:
 bolt project init --modules southalc-types
 ```
 Configure the Bolt [project](https://puppet.com/docs/bolt/latest/bolt_project_reference.html), and
-[inventory](https://puppet.com/docs/bolt/latest/bolt_inventory_reference.html) files as needed to manage
-the target systems using the transport and authentication as needed.
+[inventory](https://puppet.com/docs/bolt/latest/bolt_inventory_reference.html) files to manage the
+target systems with the correct transport and authentication.
 
 Create a hiera configuration in the Bolt project to assign classes and define puppet resources.
 Consider the following `hiera.yaml` structure.  This design allows granular configuration of
@@ -243,6 +243,23 @@ hierarchy:
       - roles
       - role
       - "roles/%{role}.yaml"
+```
+In the "site.yaml" file we can assign classes, set values, and declare resources that are
+common to all nodes.  I generally avoid putting resources in the "site.yaml" and instead use
+it only for assigning the "types" class and for setting some simple key/value data that can
+be referenced in other hiera files.  Variable interpolation in hiera data uses the syntax
+"%{lookup('<NAME>')}" for strings, or "%{alias('<NAME>')}" for other data types.  Here's an
+example "site.yaml"
+```
+---
+# Puppet data common to all nodes
+
+# Classes are assigned by hiera lookup()
+classes:
+  - types
+
+# Values referenced by other hiera YAML files
+PUPPET_SERVER: puppet.example.com
 ```
 Here's an example of a YAML hiera data file to deploy a GitLab server using a role
 assignment based on variables from the Bolt inventory.  Since this role is using the
