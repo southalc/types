@@ -1,3 +1,10 @@
+## Release 0.3.0
+
+**Features**
+
+- Added a simple Bolt plan enabling Puppet catalogs to be built from hiera data
+and pushed to otherwise unmanaged targets. 
+
 ## Release 0.2.1
 
 **Bugfix**

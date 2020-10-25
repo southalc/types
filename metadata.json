@@ -1,6 +1,6 @@
 {
   "name": "southalc-types",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": "Chris Southall",
   "summary": "Manage ALL puppet types",
   "license": "Apache-2.0",
@@ -8,25 +8,53 @@
   "project_page": "https://github.com/southalc/types",
   "issues_url": "https://github.com/southalc/types/issues",
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.1.0 <= 7.0.0" }
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.1.0 <= 7.0.0"
+    }
   ],
   "operatingsystem_support": [
-    { "operatingsystem": "CentOS" },
-    { "operatingsystem": "OracleLinux" },
-    { "operatingsystem": "RedHat" },
-    { "operatingsystem": "Scientific" },
-    { "operatingsystem": "Debian" },
-    { "operatingsystem": "Ubuntu" },
-    { "operatingsystem": "windows" },
-    { "operatingsystem": "Solaris" },
-    { "operatingsystem": "SLES" },
-    { "operatingsystem": "Darwin" },
-    { "operatingsystem": "Fedora" }
+    {
+      "operatingsystem": "CentOS"
+    },
+    {
+      "operatingsystem": "OracleLinux"
+    },
+    {
+      "operatingsystem": "RedHat"
+    },
+    {
+      "operatingsystem": "Scientific"
+    },
+    {
+      "operatingsystem": "Debian"
+    },
+    {
+      "operatingsystem": "Ubuntu"
+    },
+    {
+      "operatingsystem": "windows"
+    },
+    {
+      "operatingsystem": "Solaris"
+    },
+    {
+      "operatingsystem": "SLES"
+    },
+    {
+      "operatingsystem": "Darwin"
+    },
+    {
+      "operatingsystem": "Fedora"
+    }
   ],
   "requirements": [
-    { "name": "puppet", "version_requirement": ">= 4.10.0 < 7.0.0" }
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
   ],
-  "pdk-version": "1.14.1",
-  "template-url": "pdk-default#1.14.1",
-  "template-ref": "1.14.1-0-g0b5b39b"
+  "pdk-version": "1.18.1",
+  "template-url": "pdk-default#1.18.1",
+  "template-ref": "tags/1.18.1-0-g3d2e75c"
 }
