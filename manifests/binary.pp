@@ -1,5 +1,12 @@
-# Create a file with content from base64 encoded data
-
+# @summary Defined type to create files from base64 encoded data
+#
+# @param properties Hash
+#   Properties match the standard file resource, but 'content' must be a base64
+#   encoded string.
+#
+# @param defaults
+#   A hash of default values to be used when creating resources
+#
 define types::binary (
   Hash $properties,
   Hash $defaults = {},

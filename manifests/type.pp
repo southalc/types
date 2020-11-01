@@ -1,11 +1,11 @@
-# defined type as a replacement for create_resources() using abstracted
-# resource types as documented here:
-# https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html
-# The type should be called by the resource type being created, with '$hash'
-# containing a hash of instances of the called type and the parameters of each
-# instance.  The optional 'defaults' hash is useful in reducing the amount of
-# data needed when declaring many instances with similar attributes.
-
+# @summary Defined type uses abstract resource types to implement all types
+#
+# @param hash Hash
+#   Contains one or more resource definitions of a given type to be created
+#
+# @param defaults Hash
+#   Default values used for all resource definitions of a given type
+#
 define types::type (
   Hash $hash,
   $defaults = {}

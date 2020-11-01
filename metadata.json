@@ -1,6 +1,6 @@
 {
   "name": "southalc-types",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Chris Southall",
   "summary": "Manage ALL puppet types from hiera",
   "license": "Apache-2.0",

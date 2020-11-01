@@ -1,8 +1,11 @@
-# Generic class uses hiera hashes with simple iteration to implement ANY
-# resource type or defined type.  Types from additional modules can be used
-# simply by adding the type(s) to `types` parameter and defining the new
-# resources in the hiera hash `types::<type_name>`
-
+# @summary Manage any type or defined type from hiera
+#
+# @param types
+#   Adds support for additional types or defined types.
+#
+# @param $merge
+#   Manage the merge behavior for hiera lookups.
+#
 class types (
   Array $types,
   Hash $merge,

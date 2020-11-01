@@ -1,3 +1,13 @@
+## Release 0.3.1
+
+**Features**
+
+- Added documentation using puppet strings
+
+**Bugfix**
+
+- Bolt plan can use apply_prep_params to customize puppet agent installation
+
 ## Release 0.3.0
 
 **Features**
