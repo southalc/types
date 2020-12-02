@@ -166,10 +166,10 @@ The defined type 'types::binary' works like the standard 'file' type and uses al
 attributes, but the 'content' attribute type must be a base64 encoded string. This is useful
 for distributing small files that may be security sensitive such as Kerberos keytabs.
 
-The defined type `types::type` replaces create_resources() by using abstracted resource types as
-[documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html#implementing-the-create_resources-function)
-This should be invoked by the resource type being created with a '$hash' parameter containing the properties
-of the resource.
+The defined type `types::type` replaces the legacy create_resources() by abstracting the resource
+type as [documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html#implementing-the-create_resources-function)
+Invoked the defined type with the resource type being created and a '$hash' parameter containing
+the resource instances and attributes.
 
 For both `types::binary` and `types::type`, a `defaults` parameter is defined as a hash that will
 be used for default values.  By default, the module will perform an explicit lookup for
@@ -189,8 +189,8 @@ types::service:
     ensure: 'stopped'
     enable: false
 ```
-Note in the above example how the defined services can be set to empty hashes, as the supplied defaults
-are adequate to complete the resource definitions.  Values explicitly defined on a resource instance
+Note in the above example how the defined service resources can be set to empty hashes, as the supplied
+defaults are adequate to complete the resource definitions.  Values explicitly defined on a resource instance
 take precedent over the default values.
 
 ## Bolt
