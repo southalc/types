@@ -1,3 +1,7 @@
+## Release 0.3.2
+
+- No functional changes.  Updated metadata to support puppet 7
+
 ## Release 0.3.1
 
 **Features**

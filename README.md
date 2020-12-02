@@ -2,8 +2,7 @@
 
 1. [Description](#description)
 1. [Usage](#usage)
-1. [Reference](#reference)
-1. [Types](#types)
+1. [Defined types](#types)
 1. [Bolt plan](#bolt)
 1. [Feedback](#feedback)
 1. [Development](#development)
@@ -13,36 +12,36 @@
 Enable management of many things without writing puppet code!  Like many other modules on puppet forge,
 this module creates resources from data defined in hiera hashes.  The difference is that this module
 supports ALL types (and defined types) from ANY module.  Support for new types is enabled by using the
-`types` parameter with an array of the new types.  Of course, when using types from other modules, the
-module actually providing the type must be deployed in the environment.
+`types` parameter with an array of additional types.  Of course, when using types from other modules,
+the module actually providing the type must be present in the environment.
 
 By default, the module implements all the native resource types supported by the puppet agent, the
 ['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/reference#file_line) from puppetlabs/stdlib,
-and the local defined type ['binary'](#types).  
+and the local defined type ['binary'](#types).  Data for each enabled type is obtained through an
+explicit lookup() that defaults to an empty hash.  This means that unless there are resources defined in
+hiera the module won't do anything.
 
 ## Usage
 
-To get started, just include the module and define resources in hiera.  Use `types::<type_name>` where
-`type_name` can be ANY type or defined type from ANY module present in the environment.  When defining
-resources for types not natively supported per the above description, ensure you also define the hiera
-array `types::types` with the type names that should be included.  See the examples for a demonstration
-that leverages types from other modules, and see the ['types'](#types) notes for how to define default
-values for any type.
+To get started, just assign the module to nodes and define resources in hiera.  Use `types::<type_name>`
+where `type_name` can be ANY type or defined type from ANY module present in the environment.  To use
+types not natively supported by the puppet agent, you must define the array `types::types` and include
+the names of the additional types.  See the examples for a demonstration that leverages types from other
+modules, and see the ['types'](#types) notes for how to define default values for any type.
 
 Many puppet modules only perform simple tasks like installing packages, writing configuration files,
 and starting services.  Since this module can do all these things and more, it's possible to replace
-the functionality of MANY modules by using this one and defining the resources in hiera.
+the functionality of many modules by using this one and defining the resources in hiera.
 
-Use [relationship metaparameters](https://puppet.com/docs/puppet/6.10/lang_relationships.html) in your
+Use [relationship metaparameters](https://puppet.com/docs/puppet/latest/lang_relationships.html) in
 hiera data to order resource dependencies.  A typical application will have 'package', 'file', and
 'service' resources, and the logical order would have the file resource(s) 'require' the package, and
 either have the service resource 'subscribe' to the file resource(s) or have the file resource(s)
-'notify' the corresponding service.  See this in the following examples.
+'notify' the corresponding service.  This is demonstrated in the following examples.
 
 ### Examples
-This deployment of the name service caching daemon demonstrates installation of
-a package, configuration of a file, and refreshes the service when the managed
-configuration file chagnes.
+This deployment of the name service caching daemon demonstrates installation of a package,
+configuration of a file, and refreshes the service when the managed configuration file chagnes.
 ```
 types::package:
   nscd:
@@ -79,8 +78,8 @@ types::service:
     ensure: 'running'
     enable: true
 ```
-This demonstrates use of an exec resource for reloading iptables when the
-subscribed resource file is updated.
+This demonstrates use of an exec resource for reloading iptables when the subscribed
+resource file is updated.
 ```
 types::file:
   /etc/sysconfig/iptables:
@@ -160,14 +159,6 @@ types::concat_fragment:
       # Only allow login by members of the 'admins' group
       AllowGroups admins
 ```
-## Reference
-
-The module has only 2 parameters: `types` and `merge`.  Default values enable the types per the
-above description, and set the [merge behavior](https://puppet.com/docs/puppet/6.10/hiera_merging.html)
-to `deep` with a knockout prefix of `--`.
-
-Data for each enabled type is obtained through an explicit lookup() that defaults to an empty hash.
-This means that unless there are resources defined in hiera the module won't do anything.
 
 ## Types
 
@@ -176,8 +167,8 @@ attributes, but the 'content' attribute type must be a base64 encoded string. Th
 for distributing small files that may be security sensitive such as Kerberos keytabs.
 
 The defined type `types::type` replaces create_resources() by using abstracted resource types as
-[documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html)  This should
-be invoked by the resource type being created with a '$hash' parameter containing the properties
+[documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html#implementing-the-create_resources-function)
+This should be invoked by the resource type being created with a '$hash' parameter containing the properties
 of the resource.
 
 For both `types::binary` and `types::type`, a `defaults` parameter is defined as a hash that will
@@ -199,15 +190,15 @@ types::service:
     enable: false
 ```
 Note in the above example how the defined services can be set to empty hashes, as the supplied defaults
-are adequate to complete the resource definitions.  Values explicitly defined to a service instance
+are adequate to complete the resource definitions.  Values explicitly defined on a resource instance
 take precedent over the default values.
 
 ## Bolt
 
 New with version 0.3.0 of the module is a simple Bolt plan that uses the same hiera driven model
 to deliver Puppet automation with no server infrastructure requirements.  The Bolt plan includes
-an "apply" block that includes only a hiera lookup for assigned classes.  This enables use of
-the types module, or any other for that matter, in hiera.
+an "apply" block with just a hiera lookup for assigned classes.  This enables use of the types
+module, or any other for that matter, from hiera in Bolt.
 
 To get started with the Bolt plan once Bolt is installed, initialize a Bolt project directory to
 include this module as follows:
@@ -244,22 +235,22 @@ hierarchy:
       - role
       - "roles/%{role}.yaml"
 ```
-In the "site.yaml" file we can assign classes, set values, and declare resources that are
+In the "site.yaml" file we can assign classes, define values, and declare resources that are
 common to all nodes.  I generally avoid putting resources in the "site.yaml" and instead use
-it only for assigning the "types" class and for setting some simple key/value data that can
-be referenced in other hiera files.  Variable interpolation in hiera data uses the syntax
+it only for assigning the "types" class and for setting some simple key/value data that is
+referenced in other hiera files.  Variable interpolation in hiera data uses the syntax
 "%{lookup('<NAME>')}" for strings, or "%{alias('<NAME>')}" for other data types.  Here's an
 example "site.yaml"
 ```
 ---
-# Puppet data common to all nodes
-
-# Classes are assigned by hiera lookup()
+# Classes assigned by hiera lookup()
 classes:
   - types
 
 # Values referenced by other hiera YAML files
-PUPPET_SERVER: puppet.example.com
+AD_DOMAIN: example.com
+ROOT_PASSWORD: 'your_password_hash'
+PUPPETSERVER: "puppet.%{lookup('AD_DOMAIN')}"
 ```
 Here's an example of a YAML hiera data file to deploy a GitLab server using a role
 assignment based on variables from the Bolt inventory.  Since this role is using the
@@ -270,6 +261,7 @@ project.
 # Install and configure GitLab Enterprise
 
 classes:
+  - types
   - gitlab
   - firewalld
 
