@@ -22,6 +22,6 @@ plan types::hiera(
   }
 
   $results.each |$result| {
-    notice($result.report)
+    out::message("  Target: ${result.target}, ${result.message}")
   }
 }
