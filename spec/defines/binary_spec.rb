@@ -2,17 +2,20 @@ require 'spec_helper'
 
 describe 'types::binary' do
   let(:title) { '/tmp/binary_spec.tmp' }
-  let(:params) {{
-    :properties => {
-      :ensure  => 'file',
-      :content  => 'VHlwZXMgdW5pdCB0ZXN0Cg=='
+  let(:params) do
+    {
+      properties: {
+        ensure:  'file',
+        content: 'VHlwZXMgdW5pdCB0ZXN0Cg==',
+      },
     }
-  }}
+  end
 
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
-      if os.match(%r{windows}i)
+
+      if os =~ %r{windows}i
         let(:title) { 'C:\\Temp\\binary_spec.tmp' }
       else
         let(:title) { '/tmp/binary_spec.tmp' }

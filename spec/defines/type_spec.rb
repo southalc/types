@@ -2,13 +2,16 @@ require 'spec_helper'
 
 describe 'types::type' do
   let(:title) { 'notify' }
-  let(:params) {{
-    :hash => {
-      :unit_test => {
-        :message  => 'Unit test'
-      }
+  let(:params) do
+    {
+      hash: {
+        unit_test: {
+          message: 'Unit test',
+        },
+      },
     }
-  }}
+  end
+
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
