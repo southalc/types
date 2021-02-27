@@ -8,7 +8,7 @@
 #
 define types::type (
   Hash $hash,
-  $defaults = {}
+  Hash $defaults = {}
 ) {
   $hash.each |$instance, $properties| {
     Resource[$name] {
