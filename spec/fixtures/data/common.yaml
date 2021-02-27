@@ -1,0 +1,4 @@
+---
+types::notify:
+  unit_test:
+    message: Unit tests should pass.
