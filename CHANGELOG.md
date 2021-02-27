@@ -1,3 +1,15 @@
+## Release 0.3.3
+
+**Features**
+
+- Added basic unit tests
+- Add tags to module metadata
+
+**Bugfix**
+
+- Bolt plan now uses 'out::message' to display the ApplyResult message for each target
+- Declare the data type on the 'defaults' parameter for 'type'
+
 ## Release 0.3.2
 
 - No functional changes.  Updated metadata to support puppet 7
