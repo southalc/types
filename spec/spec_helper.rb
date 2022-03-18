@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Specify the mocking framework - https://tickets.puppetlabs.com/browse/PDK-916
 RSpec.configure do |c|
   c.mock_with :rspec
 end
@@ -11,11 +10,6 @@ require 'rspec-puppet-facts'
 require 'spec_helper_local' if File.file?(File.join(File.dirname(__FILE__), 'spec_helper_local.rb'))
 
 include RspecPuppetFacts
-
-# Enable hiera data for unit tests
-RSpec.configure do |c|
-  c.hiera_config = File.expand_path(File.join(__FILE__, '../fixtures/hiera.yaml'))
-end
 
 default_facts = {
   puppetversion: Puppet.version,

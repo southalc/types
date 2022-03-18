@@ -15,7 +15,7 @@ describe 'types::binary' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      if os =~ %r{windows}i
+      if os.match?(%r{windows}i)
         let(:title) { 'C:\\Temp\\binary_spec.tmp' }
       else
         let(:title) { '/tmp/binary_spec.tmp' }

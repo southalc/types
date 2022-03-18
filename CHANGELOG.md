@@ -1,3 +1,7 @@
+## Release 0.3.4
+
+- No functional changes.  Bumped module dependencies to include the latest versions. 
+
 ## Release 0.3.3
 
 **Features**

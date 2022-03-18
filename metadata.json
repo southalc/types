@@ -1,21 +1,16 @@
 {
   "name": "southalc-types",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "author": "Chris Southall",
   "summary": "Manage ALL puppet types from hiera",
   "license": "Apache-2.0",
   "source": "https://github.com/southalc/types",
   "project_page": "https://github.com/southalc/types",
   "issues_url": "https://github.com/southalc/types/issues",
-  "tags": [
-    "hiera",
-    "create_resources",
-    "hash"
-  ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.1.0 <= 7.0.0"
+      "version_requirement": ">= 4.1.0 <= 9.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -59,7 +54,12 @@
       "version_requirement": ">= 4.10.0 < 8.0.0"
     }
   ],
-  "pdk-version": "1.18.1",
-  "template-url": "pdk-default#1.18.1",
-  "template-ref": "tags/1.18.1-0-g3d2e75c"
+  "tags": [
+    "hiera",
+    "create_resources",
+    "hash"
+  ],
+  "pdk-version": "2.1.0",
+  "template-url": "pdk-default#2.1.0",
+  "template-ref": "tags/2.1.0-0-ga675ea5"
 }

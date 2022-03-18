@@ -12,7 +12,7 @@
 Enable management of many things without writing puppet code!  Like many other modules on puppet forge,
 this module creates resources from data defined in hiera hashes.  The difference is that this module
 supports ALL types (and defined types) from ANY module.  This module also avoids using the legacy
-"create_resources" method in favor of iteration with abstracted resource types.  Support for new types
+"create_resources" function in favor of iteration with abstracted resource types.  Support for new types
 is enabled by using the `types` parameter with an array of additional types.  Of course, when using
 types from other modules, the module actually providing the type must be present in the environment.
 
