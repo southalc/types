@@ -3,16 +3,15 @@
 # @param types
 #   Adds support for additional types or defined types.
 #
-# @param $merge
+# @param merge
 #   Manage the merge behavior for hiera lookups.
 #
 class types (
   Array $types,
   Hash $merge,
 ) {
-
   # If Puppet version is less than 6.x, include deprecated types
-  $puppet_majver = Integer(split($::clientversion, '[.]')[0])
+  $puppet_majver = Integer(split(fact(clientversion), '[.]')[0])
   if $puppet_majver < 6 {
     $all_types = unique(
       lookup('types::native_types') +

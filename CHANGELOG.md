@@ -1,6 +1,12 @@
+## Release 0.3.5
+
+- No functional changes.
+- Bumped module metadata to support latest puppet and dependency versions.
+- Updated PDK and linted.
+
 ## Release 0.3.4
 
-- No functional changes.  Bumped module dependencies to include the latest versions. 
+- No functional changes. Bumped module dependencies to include the latest versions.
 
 ## Release 0.3.3
 
