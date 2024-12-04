@@ -7,7 +7,6 @@ lookup_options:
 types::types: []
 types::merge:
   strategy: 'deep'
-  knockout_prefix: '--'
 
 # Default types for all puppet versions
 types::native_types:
