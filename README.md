@@ -9,12 +9,12 @@
 
 ## Description
 
-Enable management of many things without writing puppet code!  Like many other modules on puppet forge,
-this module creates resources from data defined in hiera hashes.  The difference is that this module
-supports ALL types (and defined types) from ANY module.  This module also avoids using the legacy
-"create_resources" function in favor of iteration with abstracted resource types.  Support for new types
-is enabled by using the `types` parameter with an array of additional types.  Of course, when using
-types from other modules, the module actually providing the type must be present in the environment.
+Like many other modules on puppet forge, this module creates resources from data defined in hiera hashes. 
+The difference is that this module supports ALL types and defined types from ANY module.  This module
+also avoids using the legacy "create_resources" function in favor of iteration with abstracted resource
+types.  Support for new types is enabled by using the `types` parameter with an array of additional
+types.  Of course, when using types from other modules, the module actually providing the type must be
+present in the environment.
 
 By default, the module implements all the native resource types supported by the puppet agent, the
 ['file_line' type](https://forge.puppet.com/puppetlabs/stdlib/reference#file_line) from puppetlabs/stdlib,
@@ -165,7 +165,7 @@ types::concat_fragment:
 
 The defined type 'types::binary' works like the standard 'file' type and uses all the same
 attributes, but the 'content' attribute type must be a base64 encoded string. This is useful
-for distributing small files that may be security sensitive such as Kerberos keytabs.
+for distributing small binary files.
 
 The defined type `types::type` replaces the legacy create_resources() by abstracting the resource
 type as [documented here.](https://puppet.com/docs/puppet/5.5/lang_resources_advanced.html#implementing-the-create_resources-function)
@@ -225,8 +225,8 @@ defaults:
 hierarchy:
   - name: "Puppet Bolt project hierarchy"
     paths:
-      - "nodes/%{::fqdn}.yaml"                     # Host specific data has highest priority
-      - "virtual/%{virtual}.yaml"                  # Virtualization overrides - good for LXC
+      - "nodes/%{networking.fqdn}.yaml"            # Host specific data has highest priority
+      - "virtual/%{virtual}.yaml"                  # Virtualization overrides per platform
       - "os/%{os.name}-%{os.release.major}.yaml"   # OS name, version specific
       - "os/%{os.family}.yaml"                     # OS family,  generic 
       - "site.yaml"                                # Common to all nodes

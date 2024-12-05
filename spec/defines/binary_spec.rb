@@ -20,7 +20,10 @@ describe 'types::binary' do
       else
         let(:title) { '/tmp/binary_spec.tmp' }
       end
-      it { is_expected.to compile }
+      it do
+        is_expected.to compile
+        is_expected.to contain_file(title)
+      end
     end
   end
 end

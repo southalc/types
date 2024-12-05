@@ -1,3 +1,7 @@
+## Release 0.3.6
+
+- Remove default merge strategy knockout_prefix #7. Contributed by TamsenSpelchak
+
 ## Release 0.3.5
 
 - No functional changes.

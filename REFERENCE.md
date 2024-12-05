@@ -10,12 +10,12 @@
 
 ### Defined types
 
-* [`types::binary`](#typesbinary): Defined type to create files from base64 encoded data
-* [`types::type`](#typestype): Defined type uses abstract resource types to implement all types
+* [`types::binary`](#types--binary): Defined type to create files from base64 encoded data
+* [`types::type`](#types--type): Defined type uses abstract resource types to implement all types
 
 ### Plans
 
-* [`types::hiera`](#typeshiera): A simple Bolt plan to deploy resources defined in hiera
+* [`types::hiera`](#types--hiera): A simple Bolt plan to deploy resources defined in hiera
 
 ## Classes
 
@@ -27,16 +27,16 @@ Manage any type or defined type from hiera
 
 The following parameters are available in the `types` class:
 
-* [`types`](#types)
-* [`merge`](#merge)
+* [`types`](#-types--types)
+* [`merge`](#-types--merge)
 
-##### <a name="types"></a>`types`
+##### <a name="-types--types"></a>`types`
 
 Data type: `Array`
 
 Adds support for additional types or defined types.
 
-##### <a name="merge"></a>`merge`
+##### <a name="-types--merge"></a>`merge`
 
 Data type: `Hash`
 
@@ -44,7 +44,7 @@ Manage the merge behavior for hiera lookups.
 
 ## Defined types
 
-### <a name="typesbinary"></a>`types::binary`
+### <a name="types--binary"></a>`types::binary`
 
 Defined type to create files from base64 encoded data
 
@@ -52,10 +52,10 @@ Defined type to create files from base64 encoded data
 
 The following parameters are available in the `types::binary` defined type:
 
-* [`properties`](#properties)
-* [`defaults`](#defaults)
+* [`properties`](#-types--binary--properties)
+* [`defaults`](#-types--binary--defaults)
 
-##### <a name="properties"></a>`properties`
+##### <a name="-types--binary--properties"></a>`properties`
 
 Data type: `Hash`
 
@@ -63,7 +63,7 @@ Hash
 Properties match the standard file resource, but 'content' must be a base64
 encoded string.
 
-##### <a name="defaults"></a>`defaults`
+##### <a name="-types--binary--defaults"></a>`defaults`
 
 Data type: `Hash`
 
@@ -71,7 +71,7 @@ A hash of default values to be used when creating resources
 
 Default value: `{}`
 
-### <a name="typestype"></a>`types::type`
+### <a name="types--type"></a>`types::type`
 
 Defined type uses abstract resource types to implement all types
 
@@ -79,17 +79,17 @@ Defined type uses abstract resource types to implement all types
 
 The following parameters are available in the `types::type` defined type:
 
-* [`hash`](#hash)
-* [`defaults`](#defaults)
+* [`hash`](#-types--type--hash)
+* [`defaults`](#-types--type--defaults)
 
-##### <a name="hash"></a>`hash`
+##### <a name="-types--type--hash"></a>`hash`
 
 Data type: `Hash`
 
 Hash
 Contains one or more resource definitions of a given type to be created
 
-##### <a name="defaults"></a>`defaults`
+##### <a name="-types--type--defaults"></a>`defaults`
 
 Data type: `Hash`
 
@@ -100,7 +100,7 @@ Default value: `{}`
 
 ## Plans
 
-### <a name="typeshiera"></a>`types::hiera`
+### <a name="types--hiera"></a>`types::hiera`
 
 A simple Bolt plan to deploy resources defined in hiera
 
@@ -108,10 +108,10 @@ A simple Bolt plan to deploy resources defined in hiera
 
 The following parameters are available in the `types::hiera` plan:
 
-* [`apply_prep_params`](#apply_prep_params)
-* [`targets`](#targets)
+* [`apply_prep_params`](#-types--hiera--apply_prep_params)
+* [`targets`](#-types--hiera--targets)
 
-##### <a name="apply_prep_params"></a>`apply_prep_params`
+##### <a name="-types--hiera--apply_prep_params"></a>`apply_prep_params`
 
 Data type: `Hash`
 
@@ -120,7 +120,7 @@ the "apply_prep" function
 
 Default value: `{}`
 
-##### <a name="targets"></a>`targets`
+##### <a name="-types--hiera--targets"></a>`targets`
 
 Data type: `TargetSpec`
 

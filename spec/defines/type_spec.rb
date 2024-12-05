@@ -17,6 +17,7 @@ describe 'types::type' do
       let(:facts) { os_facts }
 
       it { is_expected.to compile }
+      it { is_expected.to contain_notify('unit_test') }
     end
   end
 end
